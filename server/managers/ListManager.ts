@@ -3,8 +3,14 @@ type Appearance = {
     id: string;
     name: string;
 }
-
+type Tag = {
+    id: string;
+    title: string;
+    color: string;
+}
 type List = {
+    separateByTag: boolean | null | undefined;
+    tags: Tag[] | null;
     appearance: Appearance | null;
     id: string;
     items: ListItem[];
@@ -16,6 +22,7 @@ type ListItem = {
     name: string;
     id: string;
     checked: boolean;
+    tagId?: string | null | undefined;
 }
 
 const FILES_PATH = './data/lists/';
@@ -230,15 +237,17 @@ class ListManager {
     createEmptyList() {
         const id = this._createId();
         const newList: List = {
+            separateByTag: false,
             id,
             items: [],
+            tags: null,
             version: getCurrentTimeStamp(),
             title: '',
             appearance: null
         };
 
         this.addList(newList);
-        return id;
+        return newList;
     }
 
     addItemToList(id: string, item: ListItem) {
@@ -268,11 +277,12 @@ class ListManager {
         return list.version;
     }
 
-    createItemForList(id: string, itemName: string) {
+    createItemForList(id: string, itemName: string, tagId?: string | null | undefined) {
         const newItem = {
             name: itemName,
             id: this._generateItemId(),
             checked: false,
+            tagId
         };
         return this.addItemToList(id, newItem);
     }
@@ -297,6 +307,7 @@ class ListManager {
         }
         item.name = newItem.name;
         item.checked = newItem.checked;
+        item.tagId = newItem.tagId;
         return list;
     }
 }

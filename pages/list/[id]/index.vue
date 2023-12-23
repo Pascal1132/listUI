@@ -15,8 +15,8 @@
                     </div>
                 </div>
             </div>
-            <List v-if="res?.items?.length >= 0" :items="res?.items" @add-item="onAddItem" @item-checked="onItemUpdated"
-                @item-updated="onItemUpdated"></List>
+            <List v-if="res?.items?.length >= 0" :items="res?.items" @add-item="onAddItem" @item-checked="onItemUpdated" :separate-by-tag="res?.separateByTag ?? false"
+                @item-updated="onItemUpdated" :tags="res?.tags ?? []"></List>
         </div>
         <div class="screen" @click="showQrCode = false" :class="{ active: showQrCode }">
             <ClientOnly>
@@ -66,7 +66,6 @@ const onDeleteListPressed = async () => {
 
 const onListChanged = (list) => {
     res.value = list;
-    console.log(list);
 }
 
 const style = computed(() => {

@@ -16,8 +16,9 @@ export default defineEventHandler(async (event) => {
             error: 'No name provided'
         };
     }
+    console.log('newItem', newItem);
     
-    const list = listManager.createItemForList(id, newItem.name);
+    const list = listManager.createItemForList(id, newItem.name, newItem?.tagId);
     if(!list) {
         return {
             error: 'List not found'

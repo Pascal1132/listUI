@@ -1,9 +1,13 @@
 <template>
     <div class="container">
-        <button @click="newListClick">Nouvelle liste</button>
+        <div class="new-list-container">
+            <input type="text" v-model="listTitle"  placeholder="Entrez le nom de la liste" @keydown.enter="newListClick" />
+        <button @click="newListClick">Créer</button>
+        </div>
+        
         <h2 v-if="recentLists.length > 0">Listes récentes</h2>
         <ul v-if="recentLists.length > 0" class="recent-lists">
-            <li v-for="{id, title} in recentLists" :key="index" @click="goToList(id)">{{ title.length > 0 ? title : id }}</li>
+            <li v-for="{id, title} in recentLists" :key="index" @click="goToList(id)">{{ (title?.length ?? 0) > 0 ? title : id }}</li>
         </ul>
     </div>
 </template>
@@ -13,7 +17,8 @@
 export default {
     data() {
         return {
-            recentLists: []
+            recentLists: [],
+            listTitle: '',
         };
     },
     methods: {
@@ -23,6 +28,9 @@ export default {
                 headers: {
                     'Content-Type': 'application/json'
                 },
+                body: JSON.stringify({
+                    title: this.listTitle
+                })
             });
             const { data } = res;
             const id = data.value.id;
@@ -108,6 +116,31 @@ export default {
         }
     }
 
+    input {
+        background-color: var(--bg-secondary-color);
+        border: none;
+        border-radius: 5px;
+        padding: 1rem 2rem;
+        color: var(--text-color);
+        font-size: 1.2rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .new-list-container {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
 .recent-lists {

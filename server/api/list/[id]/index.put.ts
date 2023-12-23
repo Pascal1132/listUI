@@ -20,6 +20,19 @@ export default defineEventHandler(async (event) => {
     list.title = body.title;
     list.appearance = body.appearance;
 
+    // remove tagId from all items that are not in the new tag list
+    const oldTagIds = list.tags?.map(tag => tag.id) || [];
+    const newTagIds = body.tags?.map((tag: { id: any; }) => tag.id) || [];
+    const removedTagIds = oldTagIds.filter(id => !newTagIds.includes(id));
+    list.items.forEach(item => {
+        if (item.tagId && removedTagIds.includes(item.tagId)) {
+            item.tagId = null;
+        }
+    });
+    list.tags = body.tags;
+    list.separateByTag = body.separateByTag;
+    console.log('list', list);
+
     ListManager.afterUpdateEvent(id);
 
     return list;

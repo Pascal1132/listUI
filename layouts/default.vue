@@ -22,7 +22,16 @@
     --text-on-primary-color: #ffffff;
     --text-highlight-color: #17a2b8;
 }
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, width 0.3s ease-in-out;
+}
 
+.fade-slide-enter-from,
+.fade-slide-leave-to {
+    opacity: 0;
+    transform: translateY(-5%);
+}
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--bg-primary-color);
