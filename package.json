@@ -1,7 +1,6 @@
 {
-  "name": "nuxt-app",
+  "name": "listui",
   "private": true,
-  "type": "commonjs",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
