@@ -16,7 +16,9 @@
                 </div>
             </div>
             <List v-if="res?.items?.length >= 0" :items="res?.items" @add-item="onAddItem" @item-checked="onItemUpdated" :separate-by-tag="res?.separateByTag ?? false"
-                @item-updated="onItemUpdated" :tags="res?.tags ?? []"></List>
+                @item-updated="onItemUpdated" :tags="res?.tags ?? []"
+                :hide-default-tag="res?.hideDefaultTag ?? false"
+                ></List>
         </div>
         <div class="screen" @click="showQrCode = false" :class="{ active: showQrCode }">
             <ClientOnly>
@@ -196,7 +198,6 @@ onUnmounted(() => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
     padding: 0 2rem;
     gap: 1rem;
 

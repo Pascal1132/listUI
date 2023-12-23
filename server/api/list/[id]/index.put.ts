@@ -31,7 +31,7 @@ export default defineEventHandler(async (event) => {
     });
     list.tags = body.tags;
     list.separateByTag = body.separateByTag;
-    console.log('list', list);
+    list.hideDefaultTag = body.hideDefaultTag;
 
     ListManager.afterUpdateEvent(id);
 

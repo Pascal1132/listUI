@@ -9,6 +9,7 @@ type Tag = {
     color: string;
 }
 type List = {
+    hideDefaultTag: boolean | null | undefined;
     separateByTag: boolean | null | undefined;
     tags: Tag[] | null;
     appearance: Appearance | null;
@@ -237,7 +238,8 @@ class ListManager {
     createEmptyList() {
         const id = this._createId();
         const newList: List = {
-            separateByTag: false,
+            hideDefaultTag: false,
+            separateByTag: true,
             id,
             items: [],
             tags: null,
